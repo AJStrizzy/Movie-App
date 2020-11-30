@@ -1,0 +1,26 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "description": "Recommends movies and stores them in user history",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJStrizzy/Movie-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AJStrizzy/Movie-App/issues"
+  },
+  "homepage": "https://github.com/AJStrizzy/Movie-App#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0"
+  }
+}
