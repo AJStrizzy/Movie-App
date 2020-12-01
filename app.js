@@ -20,12 +20,17 @@ app.get('/signup', (req, res) => {
     res.render('signup', { title: 'Movie Generator: Signup'})
 })
 app.get('/movie', (req, res) => {
-    
-    const searchTerm = req.query.name;
+    const genres = {
+        action: '28', adventure: '12', animation: '16', comedy: '35', crime: '80', documentary: '99',
+        drama: '18', family: '10751', fantasy: '14', history: '36', horror: '27', mystery: '9648',
+        romance: '10749', thriller: '53'
+    }
+    const searchTerm = req.query.name
+
     axios.get(
-        `http://www.omdbapi.com/?s=${searchTerm}&apikey=${process.env.API_KEY}`)
+        `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${genres[searchTerm]}`)
         .then((response) => {
-            res.render('movie', { title: 'Movie Generator: Movie Choice', movie: response.data })
+            res.render('movie', { title: 'Movie Generator: Movie Choice', movies: response.data.results })
         }).catch((err) => {
             console.log(err)
         })

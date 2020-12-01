@@ -1,7 +1,56 @@
-Movie
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
 
-Your movie!
+           .movieImg {
+               width: 325x;
+               height:450px;
+           }
 
-<% let num = Math.floor(Math.random() * movie.Search.length); %> 
+           h1 {
+               text-align: center;
+           }
 
-<%= movie.Search[num].Title %> 
+           .imgCenter {
+               text-align: center;
+           }
+
+
+        </style>
+    </head>
+    <body>
+        <h1>The results are in!</h1>
+        
+        
+        
+        <% let num = Math.floor(Math.random() * movies.length); %> 
+        <% let img =  "https://image.tmdb.org/t/p/original" + movies[num].poster_path%>
+        <div class="imgCenter" id="title">
+            <h2><%= movies[num].title %> </h2>
+        </div>
+        <div class="imgCenter">
+            <%= 'Release Date ' + movies[num].release_date %> 
+        </div>
+        
+        
+        
+        <div class="imgCenter">
+            <img src= <%= img%> alt="Movie Image" class= "movieImg">
+        </div>
+        <div class="imgCenter">
+            <button type="button" onClick="window.location.reload();">Search Again!</button>
+            <a href="/history">Add to watch list</a>
+        </div>
+
+
+
+
+        <script src="" async defer></script>
+    </body>
+</html>
+
