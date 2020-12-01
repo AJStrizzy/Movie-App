@@ -1,0 +1,33 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: solid black 1px;
+}
+
+li {
+    float: right;
+}
+.left {
+    float: left;
+    padding: 0px;
+    margin: 0px;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 15px 12px 0px 12px;
+    text-decoration: none;
+}
+
+
+li a:hover {
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+} 

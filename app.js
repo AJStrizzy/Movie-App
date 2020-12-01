@@ -4,6 +4,7 @@ const axios = require('axios');
 const ejsLayouts = require('express-ejs-layouts')
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(express.static('public'))
 
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
