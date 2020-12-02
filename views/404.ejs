@@ -1,1 +1,13 @@
 <h1>404 Oops, page not found!</h1>
+
+
+
+//sequelize model:create --name Movie --attributes id:integer,title:string
+//sequelize model:create --name User --attributes name:string,email:text,password:text
+//sequelize model:create --name Review --attributes userId:integer,movieId:integer,review:text
+
+movie can have many users
+User can have many movies
+
+user belongs to many movies through reviews
+

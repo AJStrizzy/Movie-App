@@ -3,18 +3,50 @@ const express = require('express');
 const axios = require('axios');
 const ejsLayouts = require('express-ejs-layouts')
 const app = express();
-const PORT = process.env.PORT || 3000;
 app.use(express.static('public'))
+const session = require('express-session');
+const passport = require('./config/ppConfig');//***** */
+const flash = require('connect-flash');
+const SECRET_SESSION = process.env.SECRET_SESSION;
+const db = require('models')//******** */
 
+
+const isLoggedIn = require('./middleware/isLoggedIn');//****** */
+
+
+app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
 
 
+const sessionObject = {
+    secret: SECRET_SESSION,
+    resave: false,
+    saveUninitialized: true
+  }
+  app.use(session(sessionObject));
+  // Initialize passport and run through middleware
+  app.use(passport.initialize());
+  app.use(passport.session());
+  // Flash
+  // Using flash throughout app to send temp messages to user
+  app.use(flash());
+  // Messages that will be accessible to every view
+  app.use((req, res, next) => {
+    // Before every route, we will attach a user to res.local
+    res.locals.alerts = req.flash();
+    res.locals.currentUser = req.user;
+    next();
+  });
+
+  
+
+
 
 app.get('/', (req, res) => {
-    res.render('login', { title: 'Movie Generator: Login'})
+    res.render('login', { alerts: res.locals.alerts, title: 'Movie Generator: Login'})
 })
-app.get('/home', (req, res) => {
+app.get('/home', isLoggedIn, (req, res) => {
     res.render('home', { title: 'Movie Generator: Home'})
 })
 app.get('/signup', (req, res) => {
@@ -43,6 +75,46 @@ app.get('/details', (req, res) => {
     res.render('detail', { title: 'Movie Generator: Movie Details'})
 })    
 
+app.post('/signup', (req, res) => {
+    db.user.findOrCreate({
+      where: { email: req.body.email },
+      defaults: {
+        name: req.body.name,
+        password: req.body.password
+      }
+    })
+    .then(([user, created]) => {
+      if (created) {
+        // if created, success and redirect back to home
+        // Flash Message
+        const successObject = {
+          successRedirect: '/',
+          successFlash: 'Account created'
+        }
+        passport.authenticate('local', successObject)(req, res);
+      } else {
+        // Email already exists
+        req.flash('error', 'Email already exists...')
+        res.redirect('/signup');
+      }
+    })
+    .catch(err => {
+      req.flash('error', 'Either email or password is incorrect. Please try again.');
+      res.redirect('/signup');
+    })
+  });
+   app.post('/login', passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+    successFlash: 'Welcome back...',
+    failureFlash: 'Either email or password is incorrect. Please try again.'
+  }));
+  router.get('/logout', (req, res) => {
+    req.logOut();
+    req.flash('success', 'Logging out... See you soon.');
+    res.redirect('/');
+  });
+  
 app.use((req, res) => {
     res.status(404).render('404', { title: '404 Error'})
 })
@@ -50,7 +122,7 @@ app.use((req, res) => {
 
 
 
-
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`You're vibing to the sounds on PORT ${PORT}`)
