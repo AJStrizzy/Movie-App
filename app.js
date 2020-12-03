@@ -46,6 +46,16 @@ const sessionObject = {
 app.get('/', (req, res) => {
     res.render('login', { alerts: res.locals.alerts, title: 'Movie Generator: Login', loggedIn: !!req.user})
 })
+app.get('/profile', (req, res) => {
+  db.user.findAll({
+        where: {
+          id: req.user.id
+          }
+      }).then((userInfo) => {
+        console.log(userInfo)
+    res.render('profile', { title: 'Movie Generator: profile', loggedIn: !!req.user, userInfo})
+  })
+})
 app.get('/home', isLoggedIn, (req, res) => {
     res.render('home', { title: 'Movie Generator: Home', loggedIn: !!req.user})
 })
@@ -83,25 +93,6 @@ app.get('/history', (req, res) => {
   })
 
   app.post('/history', (req, res) => {
-    console.log(req)
-    db.movie.destroy({
-        where: {
-          title: req.body.title,
-        },
-        include: [
-          db.review
-        ]
-      }).then(() => {
-        res.redirect('/history')
-      })
-    })
-
-app.get('/review', (req, res) => {
-    res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user})
-})    
-
-
-app.post('/history', (req, res) => {
     db.movie.findOrCreate({
       where: {
         title: req.body.title,
@@ -117,7 +108,40 @@ app.post('/history', (req, res) => {
         res.redirect('/history')
       })   
     })    
-})
+  })
+
+
+  app.post('/history/delete', (req, res) => {
+    console.log(req)
+    db.movie.destroy({
+        where: {
+          title: req.body.title,
+        },
+      }).then(() => {
+        db.review.destroy({
+          where: {
+            movieId: req.body.id
+          }
+        })
+        res.redirect('/history')
+      })
+    })
+
+app.get('/review', (req, res) => {
+    res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user})
+})    
+
+// app.post('/profile', (req, res) => {
+//   db.user.findAll({
+//     where: {
+//       id: req.user.id
+//       }
+//   }).then((user) => {
+//       res.redirect('/history')
+//     })   
+//   })    
+
+
 
 app.post('/signup', (req, res) => {
     db.user.findOrCreate({

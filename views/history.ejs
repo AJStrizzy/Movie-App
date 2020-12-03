@@ -8,10 +8,15 @@ History
         <li><% let img =  "https://image.tmdb.org/t/p/original" + review.movie.poster%>
             <a href="/review"><img src= <%= img %> alt="Movie Image" class="movieImg">
              <h4><%= review.movie.title %></h4></a>
-             <form action="/history" method="POST">
+             <form action="/history/delete" method="POST">
                 <input type="hidden" value="<%= review.movie.title %>" name="title">
-                <input type="hidden" value="<%= review.movie.poster %>" name="poster">
+                <input type="hidden" value="<%= review.movie.id %>" name="id">
                 <input type="submit" value="Delete">
+            </form>
+            <form action="" method="">
+                <input type="hidden" value="<%= review.movie.title %>" name="title">
+                <input type="hidden" value="<%= review.movie.id %>" name="id">
+                <input type="submit" value="review">
             </form>
         </li>
     </div>
