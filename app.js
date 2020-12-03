@@ -73,22 +73,28 @@ app.get('/history', (req, res) => {
   db.review.findAll({
       where: {
         userId: req.user.id
-      }
-    }).then(userMovie => {
-      userMovie.forEach((movie) => {
-      console.log(userMovie)
-      db.movie.findAll({
-        where: {
-          id: movie.movieId
-        }
-      })
-    }).then(allHistory => {
-        res.render('history', { title: 'Movie Generator: Watch History', allHistory: allHistory, loggedIn: !!req.user})
-      })
+      },
+      include: [
+        db.movie
+      ]
+    }).then((arrReview) => {
+      res.render('history', { title: 'Movie Generator: Watch History', arrReview, loggedIn: !!req.user})
     })
   })
-  
-  
+
+  app.post('/history', (req, res) => {
+    console.log(req)
+    db.movie.destroy({
+        where: {
+          title: req.body.title,
+        },
+        include: [
+          db.review
+        ]
+      }).then(() => {
+        res.redirect('/history')
+      })
+    })
 
 app.get('/review', (req, res) => {
     res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user})
