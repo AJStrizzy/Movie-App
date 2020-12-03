@@ -5,13 +5,13 @@ const ejsLayouts = require('express-ejs-layouts')
 const app = express();
 app.use(express.static('public'))
 const session = require('express-session');
-const passport = require('./config/ppConfig');//***** */
+const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
 const SECRET_SESSION = process.env.SECRET_SESSION;
-const db = require('models')//******** */
+const db = require('./models')
 
 
-const isLoggedIn = require('./middleware/isLoggedIn');//****** */
+const isLoggedIn = require('./middleware/isLoggedIn');
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -44,14 +44,15 @@ const sessionObject = {
 
 
 app.get('/', (req, res) => {
-    res.render('login', { alerts: res.locals.alerts, title: 'Movie Generator: Login'})
+    res.render('login', { alerts: res.locals.alerts, title: 'Movie Generator: Login', loggedIn: !!req.user})
 })
 app.get('/home', isLoggedIn, (req, res) => {
-    res.render('home', { title: 'Movie Generator: Home'})
+    res.render('home', { title: 'Movie Generator: Home', loggedIn: !!req.user})
 })
 app.get('/signup', (req, res) => {
-    res.render('signup', { title: 'Movie Generator: Signup'})
+    res.render('signup', { title: 'Movie Generator: Signup', loggedIn: !!req.user})
 })
+
 app.get('/movie', (req, res) => {
     const genres = {
         action: '28', adventure: '12', animation: '16', comedy: '35', crime: '80', documentary: '99',
@@ -63,17 +64,54 @@ app.get('/movie', (req, res) => {
     axios.get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${genres[searchTerm]}`)
         .then((response) => {
-            res.render('movie', { title: 'Movie Generator: Movie Choice', movies: response.data.results })
+            res.render('movie', { title: 'Movie Generator: Movie Choice', movies: response.data.results, loggedIn: !!req.user })
         }).catch((err) => {
             console.log(err)
         })
 })
 app.get('/history', (req, res) => {
-    res.render('history', { title: 'Movie Generator: Watch History'})
-})
-app.get('/details', (req, res) => {
-    res.render('detail', { title: 'Movie Generator: Movie Details'})
+  db.review.findAll({
+      where: {
+        userId: req.user.id
+      }
+    }).then(userMovie => {
+      userMovie.forEach((movie) => {
+      console.log(userMovie)
+      db.movie.findAll({
+        where: {
+          id: movie.movieId
+        }
+      })
+    }).then(allHistory => {
+        res.render('history', { title: 'Movie Generator: Watch History', allHistory: allHistory, loggedIn: !!req.user})
+      })
+    })
+  })
+  
+  
+
+app.get('/review', (req, res) => {
+    res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user})
 })    
+
+
+app.post('/history', (req, res) => {
+    db.movie.findOrCreate({
+      where: {
+        title: req.body.title,
+        poster: req.body.poster
+      }
+    }).then(([movie, created]) => {
+      db.review.findOrCreate({
+        where: {
+          userId: req.user.id,
+          movieId: movie.id
+        }
+      }).then(()=> {
+        res.redirect('/history')
+      })   
+    })    
+})
 
 app.post('/signup', (req, res) => {
     db.user.findOrCreate({
@@ -103,20 +141,22 @@ app.post('/signup', (req, res) => {
       res.redirect('/signup');
     })
   });
-   app.post('/login', passport.authenticate('local', {
+
+app.post('/login', passport.authenticate('local', {
     successRedirect: '/home',
     failureRedirect: '/',
-    successFlash: 'Welcome back...',
+    successFlash: 'Welcome back',
     failureFlash: 'Either email or password is incorrect. Please try again.'
   }));
-  router.get('/logout', (req, res) => {
+
+app.get('/logout', (req, res) => {
     req.logOut();
-    req.flash('success', 'Logging out... See you soon.');
+    req.flash('success', 'Logged out, see you soon.');
     res.redirect('/');
   });
   
 app.use((req, res) => {
-    res.status(404).render('404', { title: '404 Error'})
+    res.status(404).render('404', { title: '404 Error', loggedIn: !!req.user})
 })
 
 

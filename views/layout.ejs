@@ -11,13 +11,15 @@
         <link rel="stylesheet" href="/styleLayout.css">
     </head>
     <body>
-        <%- include('partials/alerts') %>
+        <%- include('alerts') %>
         <nav class="nav">
             <ul class="navList">
-                <h2 href="/home" class="left">The Movie Database</h2>
+                <h2 class="left">The Movie Database</h2>
+                <% if (loggedIn) { %>
                 <li><a href="/logout">Logout</a></li>
                 <li><a href="/history">Watch History</a></li>
                 <li><a href="/home">Home</a></li>
+                <% } %>
             </ul>
         </nav>
         

@@ -19,7 +19,11 @@
             </div>
             <div class="imgCenter">
                 <button type="button" onClick="window.location.reload();">Search Again!</button>
-                <a href="/history">Add to watch list</a>
+                <form action="/history" method="POST">
+                    <input type="hidden" value="<%= movies[num].title %>" name="title">
+                    <input type="hidden" value="<%= movies[num].poster_path %>" name="poster">
+                    <input type="submit" value="Add to watch history">
+                </form>
             </div>
         </div>
 
