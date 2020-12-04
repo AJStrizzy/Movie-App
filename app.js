@@ -137,20 +137,22 @@ app.get('/review', (req, res) => {
         db.movie
       ]
   }).then((reviewInfo) => {
-    console.log(reviewInfo)
     res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
   })    
 })
 
 app.get('/reviewPage', (req, res) => {
+  
   db.review.findAll({
     where: {
       userId: req.user.id,
+      movieId: req.query.id
     },
     include: [
       db.movie
     ]
       }).then((reviewInfo) => {
+        console.log(reviewInfo)
   res.render('reviewPage', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
   }) 
 }) 
