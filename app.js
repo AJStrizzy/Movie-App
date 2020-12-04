@@ -9,7 +9,8 @@ const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const db = require('./models')
-
+const methodOverride = require('method-override')
+const op = require('sequelize').Op
 
 const isLoggedIn = require('./middleware/isLoggedIn');
 
@@ -17,6 +18,7 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
+app.use(methodOverride('_method'))
 
 
 const sessionObject = {
@@ -128,8 +130,12 @@ app.get('/history', (req, res) => {
 app.get('/review', (req, res) => {
   db.review.findAll({
     where: {
-      userId: req.user.id
-    },
+      userId: req.user.id,
+      review: {[op.not]: null}
+      },
+      include: [
+        db.movie
+      ]
   }).then((reviewInfo) => {
     console.log(reviewInfo)
     res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
@@ -137,26 +143,34 @@ app.get('/review', (req, res) => {
 })
 
 app.get('/reviewPage', (req, res) => {
-  db.user.findAll({
-        where: {
-          id: req.user.id
-        },
-      }).then((userInfo) => {
-  res.render('reviewPage', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, userInfo})
+  db.review.findAll({
+    where: {
+      userId: req.user.id,
+    },
+    include: [
+      db.movie
+    ]
+      }).then((reviewInfo) => {
+  res.render('reviewPage', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
   }) 
 }) 
 
 app.put('/reviewPage', (req, res) => {
-  console.log(req)
-  db.review.update({
+  db.review.findOne({
     where: {
-      userId: req.user.id,
-      review: req.body.review
+      userId: req.body.user,
+      movieId: req.body.movie
     },
-  }).then((review) => {
+  }).then((review)=> {
+    review.review = req.body.review
+    review.save().then((review) => {
       res.redirect('/review')
     })
   })
+})
+
+  
+  
 
 
 

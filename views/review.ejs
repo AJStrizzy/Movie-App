@@ -1,3 +1,16 @@
 Your Reviews
+<link rel="stylesheet" href="/styleHistory.css">
 
-<% console.log(reviewInfo) %> 
+<ul>
+    <% reviewInfo.forEach((review) => { %>
+        <div class="center">
+            <li><% let img =  "https://image.tmdb.org/t/p/original" + review.dataValues.movie.dataValues.poster%>
+            <img src= <%= img %> alt="Movie Image" class="movieImg">
+            <p>Your review on</p>
+            <p><span><%= review.dataValues.movie.dataValues.title%></span></p>
+            <p>was</p>
+            <p>"<span><%= review.dataValues.review%></span>"</p>
+            </li>
+        </div>
+    <% }) %>
+</ul>

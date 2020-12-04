@@ -1,6 +1,8 @@
-<form action="/reviewPage" method="PUT">
+<form action="/reviewPage?_method=put" method="POST">
     <label for="new-password">How did you like it?</label>
-    <input type="hidden" value="<%= userInfo[0].dataValues.id  %>" name="id">
-    <input type="text" name="review" id="review">
+    <input type="hidden" value="<%= reviewInfo[0].dataValues.movieId%>" name="movie">
+    <input type="hidden" value="<%= reviewInfo[0].dataValues.userId%>" name="user">
+    <input type="text" name="review" id="review" placeholder="BEST MOVIE EVER!!">
     <input type="submit" value="Leave your review">
   </form>
+  
