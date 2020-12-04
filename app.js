@@ -52,7 +52,6 @@ app.get('/profile', (req, res) => {
           id: req.user.id
           }
       }).then((userInfo) => {
-        console.log(userInfo)
     res.render('profile', { title: 'Movie Generator: profile', loggedIn: !!req.user, userInfo})
   })
 })
@@ -112,7 +111,6 @@ app.get('/history', (req, res) => {
 
 
   app.post('/history/delete', (req, res) => {
-    console.log(req)
     db.movie.destroy({
         where: {
           title: req.body.title,
@@ -128,18 +126,37 @@ app.get('/history', (req, res) => {
     })
 
 app.get('/review', (req, res) => {
-    res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user})
-})    
+  db.review.findAll({
+    where: {
+      userId: req.user.id
+    },
+  }).then((reviewInfo) => {
+    console.log(reviewInfo)
+    res.render('review', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
+  })    
+})
 
-// app.post('/profile', (req, res) => {
-//   db.user.findAll({
-//     where: {
-//       id: req.user.id
-//       }
-//   }).then((user) => {
-//       res.redirect('/history')
-//     })   
-//   })    
+app.get('/reviewPage', (req, res) => {
+  db.user.findAll({
+        where: {
+          id: req.user.id
+        },
+      }).then((userInfo) => {
+  res.render('reviewPage', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, userInfo})
+  }) 
+}) 
+
+app.put('/reviewPage', (req, res) => {
+  console.log(req)
+  db.review.update({
+    where: {
+      userId: req.user.id,
+      review: req.body.review
+    },
+  }).then((review) => {
+      res.redirect('/review')
+    })
+  })
 
 
 
