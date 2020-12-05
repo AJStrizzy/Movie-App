@@ -1,5 +1,8 @@
 # Movie-App
 Get movie suggestions, add movies to you watch list
+## Run app on browser
+1. Go to [Movie-App](https://my-movie-app-p2.herokuapp.com/)
+2. Create a user profile and start adding movies to your watch list
 ## Steps to install on local computer
 1. Go to [repo](https://github.com/AJStrizzy/movie-app) on Github profile
 2. `fork` and `clone` repo
@@ -12,28 +15,28 @@ git clone https://github.com/AJStrizzy/movie-app.git
 ```text
 nodemon app.js
 ```
-in your terminal.
+   in your terminal.
 
 5. Go to `localhost:3000` in your browser
 
-```text
+
 This was my second project done during my software engineering course with General Assembly. This project was done during
-the duration of the 7th week of the course. During the 5th and 6th weeks of the course we learned about how to use Node, Express and using dependencies. This project was our attempt at putting together an app
+the duration of the 7th week of the course. During the 5th and 6th weeks of the course we learned about how to use Node, Express and how to install and use dependencies. This project was to make an app
 with several different routes, using GET, POST, PUT and DELETE.
 
 The idea for my app was to make a movie recommender that provides movie suggestions based on genre choice. Once a movie is recommended the user can choose to either add the movie to their watch list, or get a new suggestion. Once movies are added to the watch list the user can they go and leave a review for that movie, and subsequently see a list of all the reviews they made. The user can also remove movies from their watch list witch also deletes any review they made for that movie.
 
 This app required a databe to store information in 3 different models.
 One model would store the user information, one would store the movie information, and the last model would join the user and movie models together as well as have a column for the actual movie reviews. Initially I intended on having four tables but it did not turn out to be necessary. This was the initial sketch of the database setup.
-```
+
 
 
 ![](Database.png)
 
 
-```text
+
 I also had to map out how each webpage would link to eachother. I created a flowchart that really helped keep me organized as I set up all the routes. This is what the initial flow chart looked like
-```
+
 ![](Routes.png)
 
 
@@ -167,9 +170,9 @@ app.put('/reviewPage', (req, res) => {
   })
 })
 ```
-```text
+
 This is the code that sets up all of the different routes in the app. It also sets up the authentication process for logging in.
-```
+
 
 ```javascript
 app.get('/movie', (req, res) => {
@@ -189,9 +192,11 @@ app.get('/movie', (req, res) => {
         })
 })
 ```
-```text
-This route really powers the whole app, it's where all the movie information is fetched from [themoviedb.org](https://themoviedb.org) and then stored in the appropriate models. This route also store an object with allows the user to type in the genre they want and have the numerical value be placed in the url as a search term. This had to be done because [themoviedb.org](https://themoviedb.org) doesn't search by genre name, but by unique ID values given to each genre.
-```
+
+This route really powers the whole app, it's where all the movie information is fetched from [themoviedb.org](https://themoviedb.org) and then stored in the appropriate models. This route also store an object with allows the user to type in the genre they want and have the numerical value be placed in the url as a search term. This had to be done because [themoviedb.org](https://themoviedb.org) 
+doesn't search by genre name, but by unique ID values given to each genre.
+
+
 
 ```html
      <link rel="stylesheet" href="/styleLayout.css">
@@ -216,8 +221,8 @@ This route really powers the whole app, it's where all the movie information is 
 
         <h3>Copyright &copy Moviegen 2020</h3>
 ```
-```text
+
 This is the html code for the layout page which provides a basis for how each page will appear in the app. There is an if statement being used to identify when the nav bar will be shown, depending on whether a user is logged in or not.
-```
+
 
     
