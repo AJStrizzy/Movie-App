@@ -2,6 +2,7 @@ body {
     background-image: url("https://mppmduse2pmpovwapp.azurewebsites.net/wp-content/uploads/2019/09/netflix-background-9.jpg");
     background-size: cover;
     background-attachment: fixed;
+    font-family: limelight;
 }
 ul {
     list-style-type: none;
@@ -92,3 +93,4 @@ h5 {
 .aclass {
     color: lightblue
 }
+
