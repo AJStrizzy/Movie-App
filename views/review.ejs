@@ -6,10 +6,10 @@
         <div class="center">
             <li class="li"><% let img =  "https://image.tmdb.org/t/p/original" + review.dataValues.movie.dataValues.poster%>
             <img src= <%= img %> alt="Movie Image" class="movieImg">
-            <p><span class="white">Your review on</span></p>
-            <p><span class="white"><span><%= review.dataValues.movie.dataValues.title%></span></span></p>
-            <p><span class="white">was</span></p>
-            <p><span class="white">"<span><%= review.dataValues.review%></span>"</span></p>
+            <p><span class="whitey">Your review on</span></p>
+            <p><span class="whitey"><span><%= review.dataValues.movie.dataValues.title%></span></span></p>
+            <p><span class="whitey">was</span></p>
+            <p><span class="whitey">"<span><%= review.dataValues.review%></span>"</span></p>
             </li>
         </div>
     <% }) %>

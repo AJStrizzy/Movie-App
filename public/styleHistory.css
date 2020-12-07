@@ -5,6 +5,7 @@
 
 .center {
     text-align: center;
+
 }
 
 span {
@@ -29,4 +30,8 @@ h1 {
 
 .movieOutline {
     border: solid white 1px;
+}
+
+.whitey {
+    color: white;
 }
