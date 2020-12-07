@@ -40,7 +40,7 @@ li a:hover {
 }
 h1 {
     text-align: center;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
 }
 
 h2 {
@@ -54,7 +54,7 @@ h2 {
 
 .search {
     text-align: center;
-    margin-bottom: 300px;
+    margin-bottom: 130px;
 }
 
 .searcher {
@@ -75,7 +75,7 @@ h3 {
 .white {
     background-color: black;
     border: solid white 1px;
-    border-radius: 2px ;
+    border-radius: 4px ;
     color: white;
 }
 
@@ -92,5 +92,21 @@ h5 {
 
 .aclass {
     color: lightblue
+}
+
+.center {
+    text-align: center;
+}
+
+.whitery {
+    color: white;
+    background-color: black;
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: bold;
+    width: 700px;
+    margin: auto;
+    border: white solid 1px;
+    border-radius: 18px;
 }
 
