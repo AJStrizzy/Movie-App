@@ -1,13 +1,13 @@
-History
-<link rel="stylesheet" href="/styleHistory.css">
 
+<link rel="stylesheet" href="/styleHistory.css">
+<h1><span class="white">Watch History</span></h1>
 
 <ul>
     <% arrReview.forEach((review) => { %>
      <div class="center">
-        <li><% let img =  "https://image.tmdb.org/t/p/original" + review.movie.poster%>
-            <img src= <%= img %> alt="Movie Image" class="movieImg">
-             <h4><%= review.movie.title %></h4>
+        <li class="li"><% let img =  "https://image.tmdb.org/t/p/original" + review.movie.poster%>
+            <img src= <%= img %> alt="Movie Image" class="movieImg movieOutline">
+             <h4><span class="color"><%= review.movie.title %></span></h4>
              <form action="/history/delete" method="POST">
                 <input type="hidden" value="<%= review.movie.title %>" name="title">
                 <input type="hidden" value="<%= review.movie.id %>" name="id">

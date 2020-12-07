@@ -1,12 +1,13 @@
 
-        <h1>The results are in!</h1>
+        
         
         <link rel="stylesheet" href="/styleMovie.css">
+
         
         <% let num = Math.floor(Math.random() * movies.length); %> 
         <% let img =  "https://image.tmdb.org/t/p/original" + movies[num].poster_path%>
         
-        
+        <h1><span class="white">The results are in!</span></h1>
         <div class="outline">
             <div class="imgCenter" id="title">
                 <h2><%= movies[num].title %> </h2>
@@ -15,7 +16,7 @@
                 <%= 'Release Date ' + movies[num].release_date %> 
             </div>
             <div class="imgCenter">
-                <img src= <%= img%> alt="Movie Image" class= "movieImg">
+                <img src= <%= img%> alt="Movie Image" class= "movieImg outlineOutline">
             </div>
             <div class="imgCenter">
                 <button type="button" onClick="window.location.reload();">Search Again!</button>
@@ -26,5 +27,7 @@
                 </form>
             </div>
         </div>
+
+        
 
 

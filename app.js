@@ -152,7 +152,6 @@ app.get('/reviewPage', (req, res) => {
       db.movie
     ]
       }).then((reviewInfo) => {
-        console.log(reviewInfo)
   res.render('reviewPage', { title: 'Movie Generator: Movie Details', loggedIn: !!req.user, reviewInfo})
   }) 
 }) 

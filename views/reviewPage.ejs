@@ -1,9 +1,13 @@
-<form action="/reviewPage?_method=put" method="POST">
-    <label for="new-password">How did you like it?</label>
+<link rel="stylesheet" href="styleRp.css">
+
+<div class="review">
+  <form action="/reviewPage?_method=put" method="POST">
+    <h2><span class="white">How did you like it?</span></h2>
     <input type="hidden" value="<%= reviewInfo[0].dataValues.movieId%>" name="movie">
     <input type="hidden" value="<%= reviewInfo[0].dataValues.userId%>" name="user">
-    <input type="text" name="review" id="review" placeholder="BEST MOVIE EVER!!">
-    <input type="submit" value="Leave your review">
+    <input type="text" name="review" id="review" placeholder="BEST MOVIE EVER!!" input style="font-size:40px;" class="review">
+    <input type="submit" value="Submit!" input style="font-size:40px;">
   </form>
+</div>
 
-  <%= console.log(reviewInfo[0].dataValues.movieId)%>
+  

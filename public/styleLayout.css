@@ -1,3 +1,8 @@
+body {
+    background-image: url("https://mppmduse2pmpovwapp.azurewebsites.net/wp-content/uploads/2019/09/netflix-background-9.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -17,7 +22,7 @@ li {
 
 li a {
     display: block;
-    color: black;
+    color: white;
     text-align: center;
     padding: 15px 12px 0px 12px;
     text-decoration: none;
@@ -25,9 +30,65 @@ li a {
 
 
 li a:hover {
-    font-weight: bold;
+    color: black;
+    background-color: white;
+}
+
+.form {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.signup {
+    text-align: center; 
+}
+
+.search {
+    text-align: center;
+    margin-bottom: 300px;
+}
+
+.searcher {
+    width: 530px;
+    height: 70px;
+}
+
+.button {
+    height: 70px;
+    width: 140px;
 }
 
 h3 {
+    margin-bottom: 300px;
     text-align: center;
 } 
+
+.white {
+    background-color: black;
+    border: solid white 1px;
+    border-radius: 2px ;
+    color: white;
+}
+
+h4 {
+    text-align: center;
+    font-size: 25px;
+}
+
+h5 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 250px;
+}
+
+.aclass {
+    color: lightblue
+}

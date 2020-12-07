@@ -1,15 +1,15 @@
-Your Reviews
 <link rel="stylesheet" href="/styleHistory.css">
+<h1><span class="white">Your Reviews</span></h1>
 
 <ul>
     <% reviewInfo.forEach((review) => { %>
         <div class="center">
-            <li><% let img =  "https://image.tmdb.org/t/p/original" + review.dataValues.movie.dataValues.poster%>
+            <li class="li"><% let img =  "https://image.tmdb.org/t/p/original" + review.dataValues.movie.dataValues.poster%>
             <img src= <%= img %> alt="Movie Image" class="movieImg">
-            <p>Your review on</p>
-            <p><span><%= review.dataValues.movie.dataValues.title%></span></p>
-            <p>was</p>
-            <p>"<span><%= review.dataValues.review%></span>"</p>
+            <p><span class="white">Your review on</span></p>
+            <p><span class="white"><span><%= review.dataValues.movie.dataValues.title%></span></span></p>
+            <p><span class="white">was</span></p>
+            <p><span class="white">"<span><%= review.dataValues.review%></span>"</span></p>
             </li>
         </div>
     <% }) %>

@@ -1,17 +1,22 @@
-<h1>Login Page</h1>
+<h1><span class="white">Welcome to the Movie Database</span></h1>
+<h2><span class="white">Please login here</span></h2>
 
-<form action="/login" method="POST">
-    <label for="auth-email">Email</label>
-    <input id="auth-email" type="email" name="email">
-    <label for="auth-password">Password</label>
-    <input id="auth-password" type="password" name="password">
-    <input type="submit" value="Log In">
+
+  <div class="form">
+    <form action="/login" method="POST" class="form">
+      <label for="auth-email" class="white">Email</label>
+      <input id="auth-email" type="email" name="email" >
+      <label class="white" for="auth-password">Password</label>
+      <input id="auth-password" type="password" name="password">
+      <input type="submit" value="Log In">
+    </form>
+  </div>
+
+
+
+  <form action="/signup" method="GET">
+    <h3> <span class="white">Don't have an account? <a class= "aclass" href="/signup">Create an account</a> here.</span></h3>
   </form>
 
-
-
-<form action="/signup" method="GET" class="button">
-    <a href="/signup">Create Account</a>
-</form>
 
 

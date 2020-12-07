@@ -10,3 +10,23 @@
 span {
     font-weight: bold;
 }
+
+h1 {
+    text-align: center;
+}
+
+.li {
+    border: solid white 1px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    background-color:black;
+    padding: 5px
+}
+.color {
+    color: white;
+}
+
+.movieOutline {
+    border: solid white 1px;
+}
